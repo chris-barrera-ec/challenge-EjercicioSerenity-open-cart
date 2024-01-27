@@ -2,7 +2,6 @@ package com.dum.runners;
 
 import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
-import net.serenitybdd.screenplay.targets.Target;
 import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)

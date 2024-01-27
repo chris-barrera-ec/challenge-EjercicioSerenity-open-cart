@@ -1,11 +1,10 @@
-package com.dum.tasks;
-import com.dum.userinterfaces.CheckoutPageInterface;
-import com.dum.userinterfaces.CartPageInterface;
+package com.dum.tasks.opencart;
+import com.dum.userinterfaces.opencart.CheckoutPageInterface;
+import com.dum.util.Persona;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
@@ -22,16 +21,19 @@ public class EnterInfoGuestCheckout implements Task{
     private final String Pais;
     private final String Provincia;
     public EnterInfoGuestCheckout(String nombre, String apellido, String correo, String telefono, String empresa,String direccion1,String ciudad,String codigoPostal,String pais, String provincia){
-        this.Nombre=nombre;
-        this.Apellido=apellido;
-        this.Correo=correo;
-        this.Telefono=telefono;
-        this.Empresa=empresa;
-        this.Direccion=direccion1;
-        this.Ciudad=ciudad;
-        this.CodigoPostal=codigoPostal;
-        this.Pais=pais;
-        this.Provincia=provincia;
+        Persona persona;
+        persona = new Persona();
+
+        this.Nombre=persona.getFirstName();
+        this.Apellido=persona.getLastName();
+        this.Correo=persona.getEmail();
+        this.Telefono=persona.getPhone();
+        this.Empresa=persona.getCompany();
+        this.Direccion=persona.getAddress();
+        this.Ciudad=persona.getCity();
+        this.CodigoPostal=persona.getPostCode();
+        this.Pais=persona.getCountry();
+        this.Provincia=persona.getRegion();
     }
     public static Task checkoutTheProducts(String nombre, String apellido, String correo, String telefono, String empresa,String direccion1,String ciudad,String codigoPostal,String pais, String provincia) {
         return instrumented(EnterInfoGuestCheckout.class,nombre,apellido,correo,telefono,empresa,direccion1,ciudad,codigoPostal,pais,provincia);
@@ -39,9 +41,6 @@ public class EnterInfoGuestCheckout implements Task{
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                WaitUntil.the(CartPageInterface.BTN_CHECKOUT, isVisible()).forNoMoreThan(20).seconds(),
-                Click.on(CartPageInterface.BTN_CHECKOUT),
-                Open.url("http://opencart.abstracta.us/index.php?route=checkout/checkout"),
                 WaitUntil.the(CheckoutPageInterface.LINK_GUESTCHECKOUT, isVisible()).forNoMoreThan(20).seconds(),
                 Click.on(CheckoutPageInterface.LINK_GUESTCHECKOUT),
                 WaitUntil.the(CheckoutPageInterface.BTN_CONTINUE, isVisible()).forNoMoreThan(20).seconds(),
@@ -70,7 +69,6 @@ public class EnterInfoGuestCheckout implements Task{
                 Click.on(CheckoutPageInterface.INPUT_ZONE),
                 WaitUntil.the(CheckoutPageInterface.BTN_GUEST, isVisible()).forNoMoreThan(20).seconds(),
                 Click.on(CheckoutPageInterface.BTN_GUEST)
-
         );
     }
 }

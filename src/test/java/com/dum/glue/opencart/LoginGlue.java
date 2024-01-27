@@ -1,5 +1,5 @@
-package com.dum.glue;
-import com.dum.tasks.*;
+package com.dum.glue.opencart;
+import com.dum.tasks.opencart.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -24,13 +24,9 @@ public class LoginGlue {
         when(OnStage.theActorInTheSpotlight()).attemptsTo(AddProducts.addProductsToCart());
     }
 
-    @And("ingresa al carrito de compras")
+    @And("ingresa al carrito de compras y procede al checkout")
     public void ingresaAlCarritoDeCompras() {
         when(OnStage.theActorInTheSpotlight()).attemptsTo(ViewProductsInCart.viewCart());
-    }
-
-    @Then("verifica que los productos se agregaron al carrito")
-    public void verificaQueLosProductosSeAgregaronAlCarrito() {
     }
 
     @When("ingresa datos para confirmar compra {string}, {string},  {string},  {string},  {string},  {string},  {string}, {string},  {string},  {string}")
@@ -38,14 +34,14 @@ public class LoginGlue {
         when(OnStage.theActorInTheSpotlight()).attemptsTo(EnterInfoGuestCheckout.checkoutTheProducts(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
     }
 
-
     @And("confirma la orden de compra")
     public void confirmaLaOrdenDeCompra() {
-        //when(OnStage.theActorInTheSpotlight()).attemptsTo(ConfirmPurchase.confirmThePurchase());
+        when(OnStage.theActorInTheSpotlight()).attemptsTo(ConfirmPurchase.confirmThePurchase());
     }
 
-    @Then("verifica si se ha completado la orden de compra")
-    public void verificaSiSeHaCompletadoLaOrdenDeCompra() {
+    @Then("verifica que se haya completado la orden de compra")
+    public void verificaCompletadoLaOrdenDeCompra() {
+        when(OnStage.theActorInTheSpotlight()).attemptsTo(VerifyOrderIsCompleted.verifyCompleted());
     }
 
 

@@ -1,4 +1,4 @@
-package com.dum.userinterfaces;
+package com.dum.userinterfaces.opencart;
 
 import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.By;
